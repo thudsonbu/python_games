@@ -69,7 +69,7 @@ def check_win(game_board, mark):
             combination_found = True
     return combination_found
 
-def get_markers:
+def get_markers():
     print("\nWelcome to Tom's Tic Tac Toe.")
     while True:
         try:
@@ -83,3 +83,6 @@ def get_markers:
             break
         except ValueError:
             print("\nInvalid input, must be a character.")
+    return player1_mark, player2_mark
+
+print(get_markers())
