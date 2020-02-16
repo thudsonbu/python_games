@@ -1,4 +1,4 @@
-# Create the Board
+
 board = [" ", " ", " ",
          " ", " ", " ",
          " ", " ", " "]
@@ -69,5 +69,17 @@ def check_win(game_board, mark):
             combination_found = True
     return combination_found
 
-print(check_win(board,"X"))
-
+def get_markers:
+    print("\nWelcome to Tom's Tic Tac Toe.")
+    while True:
+        try:
+            player1_mark = str(input("\nWhat will player1's market be? "))
+            break
+        except ValueError:
+            print("\nInvalid input, must be a character.")
+    while True:
+        try:
+            player2_mark = str(input("\nWhat will player2's marker be? "))
+            break
+        except ValueError:
+            print("\nInvalid input, must be a character.")
