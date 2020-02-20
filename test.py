@@ -7,11 +7,16 @@ def main():
     # start playing the game
     game = True
     while(game):
+        # create game board
+        board = [" ", " ", " ",
+                 " ", " ", " ",
+                 " ", " ", " "]
+
         game_loop(board,player1_mark,player2_mark)
 
         # querry keep playing
-        keep_playing = input("\nWould you like to play again? (Y/N)")
         while(True):
+            keep_playing = input("\nWould you like to play again? (Y/N)")
             if keep_playing.upper() == "Y":
                 game = True
                 break
@@ -20,7 +25,6 @@ def main():
                 break
             else:
                 print("Invalid Input")
-                continue
     # bye
     print("\nThanks for playing!")
 
@@ -44,9 +48,10 @@ def print_board(dictionary):
     print()
 
 
-def player_turn(mark):
+def player_turn(game_board,mark):
+    print("\nPlayer " + mark + "'s turn.")
     while True:
-        print_board(board)
+        print_board(game_board)
         # Take in user input
         user_input = 0
         while True:
@@ -57,8 +62,8 @@ def player_turn(mark):
             if user_input in range(1, 10):
                 break
         # Change marker point if valid
-        if board[user_input - 1] == " ":
-            board[user_input - 1] = mark
+        if game_board[user_input - 1] == " ":
+            game_board[user_input - 1] = mark
             break
         else:
             print("\nThat space is already taken.")
@@ -111,19 +116,23 @@ def intro_get_markers():
 def game_loop(game_board,player1_mark,player2_mark):
     round = 1
     while(True):
-        print("\nBegin round: " + str(round))
-        player_turn(player1_mark)
-        if check_win(board,player1_mark):
+        player_turn(game_board,player1_mark)
+        if check_win(game_board,player1_mark):
             print("\n!!! PLAYER1 WINS !!!")
-            break
-        player_turn(player2_mark)
-        if check_win(board,player2_mark):
-            print("\n!!! PLAYER2 WINS !!!")
+            print_board(game_board)
             break
         round += 1
         if round > 9:
             print("\n!!! TIE !!!")
+            print_board(game_board)
             break
+        player_turn(game_board,player2_mark)
+        if check_win(game_board,player2_mark):
+            print("\n!!! PLAYER2 WINS !!!")
+            print_board(game_board)
+            break
+        round += 1
+
 
 if __name__ == '__main__':
     main()
