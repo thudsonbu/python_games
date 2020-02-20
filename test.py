@@ -1,27 +1,28 @@
-
-board = [" ", " ", " ",
-         " ", " ", " ",
-         " ", " ", " "]
-
 def main():
     # get player markers
     markers = intro_get_markers()
     player1_mark = markers[0]
     player2_mark = markers[1]
 
-    round = 1
-    # game loop
-    while(True):
-        print("\nBegin round: " + str(round))
-        player_turn(player1_mark)
-        if check_win(board,player1_mark):
-            print("!!! PLAYER1 WINS !!!")
-            break
-        player_turn(player2_mark)
-        if check_win(board,player2_mark):
-            print("!!! PLAYER2 WINS !!!")
-            break
-        round += 1
+    # start playing the game
+    game = True
+    while(game):
+        game_loop(board,player1_mark,player2_mark)
+
+        # querry keep playing
+        keep_playing = input("\nWould you like to play again? (Y/N)")
+        while(True):
+            if keep_playing.upper() == "Y":
+                game = True
+                break
+            elif keep_playing.upper() == "N":
+                game = False
+                break
+            else:
+                print("Invalid Input")
+                continue
+    # bye
+    print("\nThanks for playing!")
 
 
 def print_board(dictionary):
@@ -106,6 +107,23 @@ def intro_get_markers():
             print("\nInvalid input, must be a character.")
     print("\nPlayer2's marker is " + player2_mark)
     return player1_mark, player2_mark
+
+def game_loop(game_board,player1_mark,player2_mark):
+    round = 1
+    while(True):
+        print("\nBegin round: " + str(round))
+        player_turn(player1_mark)
+        if check_win(board,player1_mark):
+            print("\n!!! PLAYER1 WINS !!!")
+            break
+        player_turn(player2_mark)
+        if check_win(board,player2_mark):
+            print("\n!!! PLAYER2 WINS !!!")
+            break
+        round += 1
+        if round > 9:
+            print("\n!!! TIE !!!")
+            break
 
 if __name__ == '__main__':
     main()
