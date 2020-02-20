@@ -3,6 +3,26 @@ board = [" ", " ", " ",
          " ", " ", " ",
          " ", " ", " "]
 
+def main():
+    # get player markers
+    markers = intro_get_markers()
+    player1_mark = markers[0]
+    player2_mark = markers[1]
+
+    round = 1
+    # game loop
+    while(True):
+        print("\nBegin round: " + str(round))
+        player_turn(player1_mark)
+        if check_win(board,player1_mark):
+            print("!!! PLAYER1 WINS !!!")
+            break
+        player_turn(player2_mark)
+        if check_win(board,player2_mark):
+            print("!!! PLAYER2 WINS !!!")
+            break
+        round += 1
+
 
 def print_board(dictionary):
     print("\nBoard Display: \n")
@@ -69,7 +89,7 @@ def check_win(game_board, mark):
             combination_found = True
     return combination_found
 
-def get_markers():
+def intro_get_markers():
     print("\nWelcome to Tom's Tic Tac Toe.")
     while True:
         try:
@@ -77,12 +97,15 @@ def get_markers():
             break
         except ValueError:
             print("\nInvalid input, must be a character.")
+    print("\nPlayer1's marker is " + player1_mark)
     while True:
         try:
             player2_mark = str(input("\nWhat will player2's marker be? "))
             break
         except ValueError:
             print("\nInvalid input, must be a character.")
+    print("\nPlayer2's marker is " + player2_mark)
     return player1_mark, player2_mark
 
-print(get_markers())
+if __name__ == '__main__':
+    main()
