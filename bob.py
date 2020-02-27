@@ -6,9 +6,9 @@ Created on Thu Feb 27 08:54:03 2020
 """
 
 import turtle
-import random
+import random # for randomly placing food
 
-food_eaten = 0
+food_eaten = 0 # Food gotten score
 
 # Screen for the game
 wn = turtle.Screen()
@@ -43,52 +43,64 @@ pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
 
-def bob_up():
+# Functions to move bob around the window
+def bob_up(): # Moves bob up 7 pixels and points him up
     bob.setheading(90)
     y = bob.ycor()
     y += 7
     bob.sety(y)
 
-def bob_down():
+
+def bob_down(): # Moves bob down 7 pixels and points him down
     bob.setheading(270)
     y = bob.ycor()
     y -= 7
     bob.sety(y)
 
-def bob_left():
+
+def bob_left(): # Moves bob left 7 pixels and points him left
     bob.setheading(180)
     x = bob.xcor()
     x -= 7
     bob.setx(x)
 
-def bob_right():
+
+def bob_right(): # Moves bob right 7 pixels and points him right
     bob.setheading(0)
     x = bob.xcor()
     x += 7
     bob.setx(x)
     
-def move_food():
+    
+def move_food(): # Moves the food to some randome location in the window
     x_core = random.randrange(-300,300)
     y_core = random.randrange(-300,300)
     food.setx(x_core)
     food.sety(y_core)
+  
     
 def check_food_gotten():
+    """Check if bob has gotten the food. If bob has gotten the food the food 
+    is moved to another random location using move_food(). The new food score
+    is then written to the top of the window"""
     if (((bob.ycor() < food.ycor() +15) and (bob.ycor() > food.ycor() -15)) and ((bob.xcor() < food.xcor() +15) and (bob.xcor() > food.xcor() -15))):
+        # Move the food once bob gets it.
         move_food()
+        
+        # Add to the food eaten count
         global food_eaten
         food_eaten += 1
+        
+        # Write food eaten to top of window.
         pen.clear()
         pen.write("Bob has eaten {} food".format(food_eaten), align="center", font=("Serrif", 12, "normal"))
         
         
     
 # Keyboard binding
-wn.listen() # tells turtle to listen for keyboard input
-wn.onkeypress(bob_up, "w") # when the user presses w run paddle_a_up
-# wn.onkeyrelease(paddle_a_stop_up, "w")
+wn.listen()
+wn.onkeypress(bob_up, "w") 
 wn.onkeypress(bob_down, "s")
-# wn.onkeyrelease(paddle_a_stop_down, "s")
 wn.onkeypress(bob_left, "a")
 wn.onkeypress(bob_right, "d")
 
