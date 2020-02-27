@@ -62,7 +62,7 @@ def move_food():
     food.sety(y_core)
     
 def check_food_gotten():
-    if (((bob.ycor < food.ycor +20) and (bob.ycor > food.ycor -20)) and ((bob.xcor < food.xcor +20) and (bob.xcor > food.xcor -20))):
+    if (((bob.ycor() < food.ycor() +20) and (bob.ycor() > food.ycor() -20)) and ((bob.xcor() < food.xcor() +20) and (bob.xcor() > food.xcor() -20))):
         move_food()
         
         
@@ -80,3 +80,4 @@ wn.onkeypress(bob_right, "d")
 while(True):
     wn.update()
     
+    check_food_gotten()
