@@ -1,8 +1,22 @@
+"""
+Created on Thu Feb 22 02:43:02 2020
+
+@author: Tom Hudson
+
+This is a remake of the game pong using python's turtle library. Using w and s
+you can move your paddle up and down to play against the computer which 
+which follows the paddle up and down the screen automatically. If you want to
+increase the difficulty you can increase the value of the game speed variable.
+In the future I am hoping to make the game run smoother by using on press and 
+on release but it has been unsuccesful thus far.
+"""
+
 import turtle
 import random
 
 game_speed = 2
 
+# Create the turtle screen
 wn = turtle.Screen()
 wn.title("Pong by @t_hud_subi")
 wn.bgcolor("black")
@@ -50,12 +64,6 @@ pen.hideturtle()
 pen.goto(0, 260)
 pen.write("Player A: {}     PlayerB: {}".format(score_a, score_b), align="center", font=("Serrif", 12, "normal"))
 
-
-# Player Game Functions
-
-# global paddle_a_go_up
-
-# global paddle_a_go_down
 
 """def paddle_a_up():
     paddle_a_go_up = True
@@ -105,22 +113,22 @@ while True:
     ball.sety(ball.ycor() + ball.dy)
 
     # Border checking
-    if ball.ycor() > 290:
+    if ball.ycor() > 290: # Ball hits top of screen
         ball.sety(290)
         ball.dy *= -1
 
-    if ball.ycor() < -290:
+    if ball.ycor() < -290: # Boll hits bottom of screen
         ball.sety(-290)
         ball.dy *= -1
 
-    if ball.xcor() > 390:
+    if ball.xcor() > 390: # Ball goes off screen right > reset add score
         ball.goto(0, 0)
         ball.dx *= -1
         score_a += 1
         pen.clear()
         pen.write("Player A: {}     PlayerB: {}".format(score_a, score_b), align="center", font=("Serrif", 12, "normal"))
 
-    if ball.xcor() < -390:
+    if ball.xcor() < -390: # Ball goes off screen left > reset add score
         ball.goto(0, 0)
         ball.dx *= -1
         score_b += 1
@@ -130,21 +138,25 @@ while True:
 
     # Paddle and ball colisions
 
+    # Ball hits paddle b > changes direction
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 50) and (ball.ycor() > paddle_b.ycor() -50):
         ball.setx(340)
         ball.dx *= -1
-
+    
+    # Ball hits paddle a > chnages direction
     if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 50) and (ball.ycor() > paddle_a.ycor() -50):
         ball.setx(-340)
         ball.dx *= -1
 
-    # Paddle tracking
-
+    # Paddle following by the computer
+    
+    # Ball below paddle, paddle moves down
     if (ball.ycor() < paddle_b.ycor()) and ball.xcor() > 0:
         y = paddle_b.ycor()
         y -= random.randint(0, 10)/35 * game_speed
         paddle_b.sety(y)
 
+    # ball aboce paddle, paddle moves up
     if (ball.ycor() > paddle_b.ycor()) and ball.xcor() > 0:
         y = paddle_b.ycor()
         y += random.randint(0, 10)/35 * game_speed
