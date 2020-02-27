@@ -6,6 +6,9 @@ Created on Thu Feb 27 08:54:03 2020
 """
 
 import turtle
+import random
+
+food_eaten = 0
 
 wn = turtle.Screen()
 wn.title("Pet Turtle by @thudsonbu")
@@ -20,6 +23,13 @@ bob.color("green")
 bob.shapesize(stretch_wid=1, stretch_len=1)
 bob.penup() # does not draw a line
 bob.goto(0,0)
+
+food = turtle.Turtle()
+food.speed(0)
+food.shape("circle")
+food.color("green")
+food.penup()
+food.goto(200,0)
 
 def bob_up():
     bob.setheading(90)
@@ -45,6 +55,18 @@ def bob_right():
     x += 7
     bob.setx(x)
     
+def move_food():
+    x_core = random.randrange(-300,300)
+    y_core = random.randrange(-300,300)
+    food.setx(x_core)
+    food.sety(y_core)
+    
+def check_food_gotten():
+    if (((bob.ycor < food.ycor +20) and (bob.ycor > food.ycor -20)) and ((bob.xcor < food.xcor +20) and (bob.xcor > food.xcor -20))):
+        move_food()
+        
+        
+    
 # Keyboard binding
 wn.listen() # tells turtle to listen for keyboard input
 wn.onkeypress(bob_up, "w") # when the user presses w run paddle_a_up
@@ -57,3 +79,4 @@ wn.onkeypress(bob_right, "d")
 
 while(True):
     wn.update()
+    
