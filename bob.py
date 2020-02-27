@@ -10,12 +10,15 @@ import random
 
 food_eaten = 0
 
+# Screen for the game
 wn = turtle.Screen()
 wn.title("Pet Turtle by @thudsonbu")
 wn.bgcolor("black")
 wn.setup(width=800, height=600)
 wn.tracer(0)
 
+
+# Bob (the turtle)
 bob = turtle.Turtle()
 bob.speed(0) # speed of animation (max speed = 0)
 bob.shape("turtle")
@@ -24,12 +27,21 @@ bob.shapesize(stretch_wid=1, stretch_len=1)
 bob.penup() # does not draw a line
 bob.goto(0,0)
 
+# Food which is bobs goal
 food = turtle.Turtle()
 food.speed(0)
 food.shape("circle")
 food.color("green")
 food.penup()
 food.goto(200,0)
+
+# Pen to write the score at the top of the screen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
 
 def bob_up():
     bob.setheading(90)
@@ -62,8 +74,12 @@ def move_food():
     food.sety(y_core)
     
 def check_food_gotten():
-    if (((bob.ycor() < food.ycor() +20) and (bob.ycor() > food.ycor() -20)) and ((bob.xcor() < food.xcor() +20) and (bob.xcor() > food.xcor() -20))):
+    if (((bob.ycor() < food.ycor() +15) and (bob.ycor() > food.ycor() -15)) and ((bob.xcor() < food.xcor() +15) and (bob.xcor() > food.xcor() -15))):
         move_food()
+        global food_eaten
+        food_eaten += 1
+        pen.clear()
+        pen.write("Bob has eaten {} food".format(food_eaten), align="center", font=("Serrif", 12, "normal"))
         
         
     
